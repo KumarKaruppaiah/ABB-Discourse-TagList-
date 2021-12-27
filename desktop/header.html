@@ -1,10 +1,12 @@
 <script type="text/discourse-plugin" version="0.8">
     const container = Discourse.__container__;
-    api.registerConnectorClass('before-topic-list-body', 'tag-sidebar', {
+    api.registerConnectorClass('below-site-header', 'tag-sidebar', {
         tagName: "div.sticky-sidebar",
         setupComponent(args, component) {
             component.set('message', 'test');
+            api.onPageChange((url) => {
 
+            });
         }
     });
 </script>
