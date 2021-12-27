@@ -1,8 +1,9 @@
-<script type="text/discourse-plugin" version="0.8">
+<script type="text/discourse-plugin" version="0.8.18">
     const container = Discourse.__container__;
     api.registerConnectorClass('below-site-header', 'tag-sidebar', {
         tagName: "div.sticky-sidebar",
         setupComponent(args, component) {
+            debugger;
             component.set('message', 'test');
             api.onPageChange((url) => {
 
