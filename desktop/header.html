@@ -57,9 +57,11 @@
                     foundTags = categoryId.tags.sort(alphaId);
                   }
                 }
+
+                component.set("tagList", foundTags);
             }
 
-            component.set("tagList", foundTags);
+            
            
         });
       })
