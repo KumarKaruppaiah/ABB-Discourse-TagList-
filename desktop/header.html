@@ -1,5 +1,26 @@
 <script type="text/discourse-plugin" version="0.8">
   const container = Discourse.__container__;
+  const { ajax } = require("discourse/lib/ajax");   
+
+  function alphaId(a, b) {
+    if (a.id < b.id) {
+      return -1;
+    }
+    if (a.id > b.id) {
+      return 1;
+    }
+    return 0;
+  }
+  
+  function tagCount(a, b) {
+    if (a.count > b.count) {
+      return -1;
+    }
+    if (a.count < b.count) {
+      return 1;
+    }
+    return 0;
+  }
 
   api.registerConnectorClass('below-site-header', 'tag-sidebar', {
     tagName: "div.sticky-sidebar",
@@ -8,50 +29,36 @@
 
       component.set('hostname', window.location.hostname);
       api.onPageChange((url) => {
-        const path = window.location.pathname;
-        const catController = container.lookup('controller:navigation/category');
-        const category = catController.get("category");
+        ajax("/tags.json").then(function (result) {
+            let tagsCategories = result.extras.categories;
+            let tagsAll = result.tags;
+            let foundTags = [];
 
-        const isException = category &&
-            settings.exceptions.split("|").includes(category.name);
+            if (url.match(/^\/c\/(.*)/)) {
+                // if category
+                const controller = container.lookup(
+                  "controller:navigation/category"
+                );
+                let category = controller.get("category");
+                component.set("category", category);
 
-        const siteSettings = container.lookup("site-settings:main");
+                if (tagsCategories.find(({ id }) => id === category.id)) {
+                  component.set("hideSidebar", false);
+                  // if category has a tag list
+                  let categoryId = tagsCategories.find(
+                    ({ id }) => id === category.id
+                  );
+                  if (settings.sort_by_popularity) {
+                    foundTags = categoryId.tags.sort(tagCount);
+                  } else {
+                    foundTags = categoryId.tags.sort(alphaId);
+                  }
+                }
+            }
 
-
-        const topMenuRoutes =
-        siteSettings.top_menu.split('|')
-        .map(function(route) {return '/' + route});
-
-
-        let noCategories = topMenuRoutes.indexOf("/categories")
-
-        if (noCategories > -1) {
-          topMenuRoutes.splice(noCategories, 1);
-        }
-
-      if(/^\/c\//.test(path) && !isException || (settings.show_on_toproutes && (topMenuRoutes.indexOf(path) > -1) && !/^\/tag\//.test(path))) {
-
-          const tagController = container.lookup("controller:discovery/topics");
-          let topTags = tagController.get("model.topic_list.top_tags");
-
-
-          if (topTags.length > 2) {
-
-          $('html').addClass('custom-sidebar');
-          $(".topic-list").addClass("with-sidebar").addClass(settings.sidebar_side);
-          if (this.isDestroyed || this.isDestroying) {
-            return;
-          }
-          component.set('topTags', topTags);
-          component.set('cat', category);
-          component.set('tagSidebar', true);
-
-        } else {
-          $('html').removeClass('custom-sidebar');
-          $(".topic-list").removeClass("with-sidebar").removeClass(settings.sidebar_side);
-          component.set('tagSidebar', false);
-          }
-        }
+            component.set("tagList", foundTags);
+           
+        });
       })
     }
   });
@@ -62,6 +69,13 @@
   data-template-name="/connectors/below-site-header/tag-sidebar"
 >
   <div>
-      <h1>This is test widget</h1>
+    <div class="discourse-sidebar-tags">
+        <div class="sidebar-tags-list">
+          <h3 class="tags-list-title">{{theme-i18n "tag_sidebar.title"}}</h3>
+            {{#each tagList as |t|}}
+              {{discourse-tag t.id style="box"}}
+            {{/each}}
+          </div>
+    </div>
   </div>
 </script>
