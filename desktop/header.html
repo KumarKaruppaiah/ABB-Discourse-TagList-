@@ -32,7 +32,7 @@
         ajax("/tags.json").then(function (result) {
             debugger;
             let tagsCategories = result.extras.categories;
-            let tagsAll = result.tags;
+            let tagsAll = result.tags.sort(tagCount);
             let foundTags = [];
 
             component.set("tagList", tagsAll);
