@@ -1,10 +1,10 @@
 {
-    "name": "discourse-tag-sidebar",
-    "license_url": "https://github.com/awesomerobot/discourse-tag-sidebar/blob/master/LICENSE",
-    "about_url": "https://github.com/awesomerobot/discourse-tag-sidebar/blob/master/README.md",
-    "component": true,
-    "assets": {
-    },
-    "color_schemes": {
-    }
+  "name": "discourse-tag-sidebar",
+  "license_url": "https://github.com/awesomerobot/discourse-tag-sidebar/blob/master/LICENSE",
+  "about_url": "https://github.com/awesomerobot/discourse-tag-sidebar/blob/master/README.md",
+  "component": true,
+  "assets": {
+  },
+  "color_schemes": {
   }
+}
