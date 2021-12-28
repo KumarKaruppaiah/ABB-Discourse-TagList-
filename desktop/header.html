@@ -1,6 +1,7 @@
 <script type="text/discourse-plugin" version="0.8.18">
     const container = Discourse.__container__;
-    api.registerConnectorClass('before-topic-list-body', 'tag-sidebar', {
+    api.registerConnectorClass('before-topic-list-body', 'abb-tag-sidebar', {
+        debugger;
         tagName: "div.sticky-sidebar",
         setupComponent(args, component) {
             debugger;
@@ -11,7 +12,7 @@
         }
     });
 </script>
-<script type="text/x-handlebars" data-template-name="/connectors/before-topic-list-body/tag-sidebar">
+<script type="text/x-handlebars" data-template-name="/connectors/before-topic-list-body/abb-tag-sidebar">
     <div class="tag-sidebar">
         {{message}}
     </div> 
