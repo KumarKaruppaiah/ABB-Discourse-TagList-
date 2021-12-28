@@ -22,7 +22,7 @@
     return 0;
   }
 
-  api.registerConnectorClass('below-site-header', 'tag-sidebar', {
+  api.registerConnectorClass('before-below-site-header', 'tag-sidebar', {
     tagName: "div.sticky-sidebar",
     setupComponent(args, component) {
 
@@ -71,7 +71,7 @@
 
 <script
   type="text/x-handlebars"
-  data-template-name="/connectors/below-site-header/tag-sidebar"
+  data-template-name="/connectors/before-below-site-header/tag-sidebar"
 >
   <div>
     <div class="discourse-sidebar-tags">
