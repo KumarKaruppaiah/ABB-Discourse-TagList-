@@ -30,9 +30,12 @@
       component.set('hostname', window.location.hostname);
       api.onPageChange((url) => {
         ajax("/tags.json").then(function (result) {
+            debugger;
             let tagsCategories = result.extras.categories;
             let tagsAll = result.tags;
             let foundTags = [];
+
+            component.set("tagList", tagsAll);
 
             if (url.match(/^\/c\/(.*)/)) {
                 // if category
