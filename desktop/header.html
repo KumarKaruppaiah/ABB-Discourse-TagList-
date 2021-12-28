@@ -20,20 +20,17 @@
       return 1;
     }
     return 0;
-  }
-
-  debugger;
+  }  
   const currentUser = api.getCurrentUser();
 
-  api.registerConnectorClass('below-site-header', 'tag-sidebar', {
+  api.registerConnectorClass('before-topic-list', 'tag-sidebar', {
     tagName: "div.sticky-sidebar",
     setupComponent(args, component) {
 
 
       component.set('hostname', window.location.hostname);
       api.onPageChange((url) => {
-        ajax("/tags.json").then(function (result) {
-            debugger;
+        ajax("/tags.json").then(function (result) {            
             let tagsCategories = result.extras.categories;
             let tagsAll = result.tags.sort(tagCount);
             let foundTags = [];
