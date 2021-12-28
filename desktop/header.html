@@ -61,14 +61,7 @@
   type="text/x-handlebars"
   data-template-name="/connectors/before-topic-list-body/tag-sidebar"
 >
-   {{#if tagSidebar}}
-
-      <div class="tag-sidebar {{cat.slug}}-sidebar">
-        <h3>{{i18n (theme-prefix "popular_tags")}}</h3>
-          {{#each topTags as |t|}}
-            <a href="/tags{{if cat '/c/'}}{{if cat.parentCategory (concat cat.parentCategory.slug "/")}}{{cat.slug}}/{{t}}">{{t}}</a>
-          {{/each}}
-      </div>
-
-  {{/if}}
+  <div>
+      <h1>This is test widget</h1>
+  </div>
 </script>
