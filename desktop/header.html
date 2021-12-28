@@ -22,6 +22,9 @@
     return 0;
   }
 
+  debugger;
+  const currentUser = api.getCurrentUser();
+
   api.registerConnectorClass('below-site-header', 'tag-sidebar', {
     tagName: "div.sticky-sidebar",
     setupComponent(args, component) {
