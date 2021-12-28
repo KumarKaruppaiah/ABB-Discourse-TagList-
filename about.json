@@ -1,5 +1,5 @@
 {
-  "name": "discourse-tag-sidebar",
+  "name": "abb-discourse-tag-list",
   "license_url": "https://github.com/awesomerobot/discourse-tag-sidebar/blob/master/LICENSE",
   "about_url": "https://github.com/awesomerobot/discourse-tag-sidebar/blob/master/README.md",
   "component": true,
